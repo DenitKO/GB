@@ -2,6 +2,8 @@
 
 ![Контейнеризация](Images/containerization.jpg)
 
-1. ![Семинар 1](./seminar1.md)
+### Домашнее задание
+
+1. [Семинар 1](./seminar1.md)
 2. 
 3. 

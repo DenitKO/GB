@@ -1,3 +1,3 @@
-﻿# Контейнеризация (семинары)
+﻿# Geek Brains
 
- ![Контейнеризация](Images/containerization.jpg)
+ [Контейнеризация(семинары)](./Containerization/containerization.md)
