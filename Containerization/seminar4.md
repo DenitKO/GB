@@ -10,12 +10,24 @@ nano Dockerfile
 
 ### добавляем код в файл
 
-FROM ubuntu: latest
+FROM ubuntu:20.04
 
-RUN apt-get update && apt-get install -y curl wget && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y python3 && rm -rf /var/lib/apt/lists/*
+
+COPY app.py /app/
 
 WORKDIR /app
 
-COPY . .
+CMD ["python3", "/app/app.py"]
 
-CMD["bash"]
+### собираем контейнер
+
+docker build -t my-docker-image .
+
+![Консоль](Images/seminar4/1.png)
+
+### Запускаем его
+
+docker run -it my-docker-image
+
+![Консоль](Images/seminar4/2.png)
