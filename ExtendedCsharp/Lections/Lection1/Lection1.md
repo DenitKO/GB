@@ -42,6 +42,9 @@ Keep it short and simple – код должен быть прост и поня
 
 Don’t repeat yourself
 
+### YAGNI
+You ain't gonna need it
+
 ### IoC
 
 IoC - Inversion of control - Don’t call us, we’ll call you. Различные источники приводят различные паттерны, к которым может быть применен IoC. И скорее всего они все правы и просто дополняют друг друга. Вот некоторые их этих паттернов: factory, service locator, template method, observer, strategy.
@@ -55,12 +58,17 @@ IoC - Inversion of control - Don’t call us, we’ll call you. Различны
     /* инит, по сути, создаёт константу в которую можно занести другое значение, при инициализации, кроме дефолтного. */
 }
 </pre></code>
+### Ключевое слово params
+
 
 ### Required
 
 required - ключевое слово используемое для обозначения обязательного для инициализации поля
 
-inline инициализация - в методах get, set/init
+Заметка удобно, с этим параметром, можно не делать конструктор, если есть обязательные для инициализации поля
+
+
+***inline инициализация - в методах get, set/init***
 
 ### Модификаторы доступа
 
@@ -78,3 +86,254 @@ inline инициализация - в методах get, set/init
 ● private internal – тип или член, помеченный словом protected, доступен только коду текущего класса или коду классов-наследников текущей сборки.
 
 модификатор sealed запрещает наследовать
+
+### Абстрактные классы и методы
+
+Модификатор abstract может быть применен к классам, свойствам, методам, событиям и индикаторам.
+
+При этом переменная может быть абстрактного типа, однако значение, лежащее в ней, должно обязательно принадлежать одному из
+классов-потомков или же null.
+
+### new методы
+
+C# позволяет “спрятать” реализацию метода базового класса в классе наследнике.
+
+Для того, чтобы спрятать метод родителя, нужно реализовать собственный с
+идентичной сигнатурой.
+
+### Запечатанные классы и методы
+
+Иногда мы не хотим, чтобы наш класс имел потомков.
+
+Для реализации подобного в C# есть модификатор **sealed**. Он может быть ***применен*** как к ***классу, методу или свойству***.
+
+### Статические классы
+
+Статический класс – это специальный тип класса, работать с которым можно без
+создания его экземпляра. Нельзя создавать экземпляры статического класса.
+Статические классы нельзя наследовать. Нельзя объявлять унаследованные классы
+статическими. Доступ к членам статического класса происходит через обращение к
+его типу. Все члены статического класса должны быть помечены модификатором
+static.
+
+Статические классы нельзя передавать в качестве параметров.
+
+Статический класс может иметь private-конструктор, который будет выполняться
+автоматически до первого обращения к любому члену этого класса.
+
+<pre><code>
+public static class Test
+{
+    static Test()
+    {
+        Console.WriteLine("Test constructor called");
+    }
+    public static void Print()
+    {
+        Console.WriteLine("Print method called");
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        Console.WriteLine("Console.WriteLine");
+
+        Test.Print();
+    }
+}
+</pre></code>
+
+выведет 
+
+<pre><code>
+Console.WriteLine
+Test constructor called
+Print method called
+</pre></code>
+
+### Методы расширения
+
+Это специальные методы, реализуемые вне класса, но имеющую семантику вызова,
+идентичную методам класса, для которого они реализованы.
+
+[модификатор доступа] static тип имяМетода(this тип имяПараметра);
+
+<pre><code>
+using System;
+namespace Lection3Program2
+{
+    public static class StringUtils
+    {
+        public static string Reverse(this string s)
+        {
+            return new String(s.ToCharArray().Reverse().ToArray());
+        }
+    }
+
+    static void Main()
+    {
+        string s = "Hello, World!";
+
+        s = s.Reverse();
+
+        Console.WriteLine(s);
+    }
+}
+</pre></code>
+
+<pre><code>
+!dlroW ,olleH
+</pre></code>
+
+Обратите внимание, как мы вызываем метод Reverse (строка 8). Теперь вызов
+выглядит так, как будто это обычный метод класса string.
+
+
+### Partial классы
+
+Реализацию класса можно разбить на несколько частей. Обычно это имеет смысл,
+когда код дополняется каким-либо инструментом автогенерации кода. Например, в
+фреймворке WPF C# генерирует часть кода графических форм приложений
+(отрисовку графических элементов) самостоятельно в отдельном partial классе в
+отдельном файле в процессе компиляции приложения, а разработчик реализует
+свою часть кода в своей части partial класса в отдельном файле.
+
+<pre><code>
+using System;
+namespace Practice1;
+
+partial class Program
+{
+    static void Main()
+    {
+        TestPartial();
+    }
+}
+
+partial class Program
+{
+    static void TestPartial()
+    {
+        Console.WriteLine("The method belong to the partial class");
+    }
+}
+</pre></code>
+
+Помимо partial-классов возможны также и partial-методы. Принцип их работы схож:
+объявление и реализация могут находиться отдельно друг от друга.
+
+
+### Интерфейсы
+
+Интерфейсы в чем-то похожи на абстрактные классы, но, в отличие от последних, не могут
+содержать реализацию и хранить состояние
+
+поддерживают (могут содержать) методы, свойства, индексаторы и события.
+
+Важно понимать, когда нужно использовать абстрактный класс, а когда интерфейс:
+если требуется использовать одинаковым образом группу объектов, не связанных
+наследованием, то интерфейс будет единственным решением. 
+
+C# содержит предопределенные интерфейсы, реализовав которые можно наделить
+ваш класс поддержкой различных алгоритмов платформы.
+
+Пример таких интерфейсов это: ICloneable, IConvertible, IDisposable, IConvertible,
+IComparable.
+
+<pre><code>
+public interface IComparable
+{
+    int CompareTo (object? obj);
+}
+
+public CompareTo(object? obj)
+{
+    if (obj == null)
+        return -1;
+    return this.Birthday.CompareTo((obj as Person).Birthday);
+}
+</pre></code>
+
+Интерфейс не нужно описывать, так как он уже описан и является частью
+библиотеки System.
+
+Чтобы сортировка работала правильно, метод CompareTo должен
+работать следующим образом: возвращать -1, если текущий объект
+меньше переданного, 0, если объекты равны, и 1, если текущий объект
+больше переданного в метод.
+
+
+**Я всё равно описал.**
+
+<pre><code>
+internal class ComparablePerson : IComparable
+{
+    public ComparablePerson(int age, double height, double weight)
+    {
+        this.age = age;
+        this.height = height;
+        this.weight = weight;
+    }
+
+    public int age;
+    public double height;
+    public double weight;
+
+    public int CompareTo(object? obj)
+    {
+        ComparablePerson p = obj as ComparablePerson;
+
+        if (p != null)
+        {
+            if (age > p.age)
+            {
+                return -1;
+            }
+            else if (age < p.age)
+            {
+                return 1;
+            }
+            else
+            {
+                return 0;
+            }
+        }
+        else
+        {
+            throw new Exception("Параметр должен быть типа ComparablePerson");
+        }
+    }
+}
+</pre></code>
+
+**И вот метод для вставки в Main**
+<pre><code>
+public static void ComparablePerson()
+{
+    ComparablePerson[] persons = new ComparablePerson[10];
+
+    Random r = new Random();
+
+    for (int i = 0; i < persons.Length; i++)
+    {
+        persons[i] = new ComparablePerson(r.Next(1, 95), r.Next(30, 190), r.Next(20, 95));
+
+        Console.WriteLine($"age: {persons[i].age} height: {persons[i].height} weight: {persons[i].age}");
+    }
+
+    Array.Sort(persons);
+
+    Console.WriteLine(new string('-', 30));
+
+    for (int i = 0; i < persons.Length; i++)
+    {
+        Console.WriteLine($"age: {persons[i].age} height: {persons[i].height} weight: {persons[i].age}");
+    }
+
+    Console.ReadKey();
+}
+</pre></code>
+
+65 страница
