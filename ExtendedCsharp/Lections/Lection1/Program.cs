@@ -5,29 +5,27 @@ using System.Text;
 
 namespace Lection1
 {
-    delegate int MyDelegat();
-    delegate void MyStringDelegat(string s);
     class Program
     {
         static void Main(string[] args)
         {
-            // UpCastDownCastSubstitution();
+            UpCastDownCastSubstitution();
 
             // ExtendetCSharpLection1();
 
             // TypeConvertsion();
 
             #region Start TestClass1Seminar1_1
-            TestClassSeminar1_1 testClass = new("Денис");
-            TestClassSeminar1_1 testClass2 = new("Оля");
-            TestClassSeminar1_1 testClass3 = new("Абырвалг");
-            Console.WriteLine(testClass.GetReverseName());
-            Console.WriteLine(testClass2.GetReverseName());
-            Console.WriteLine(testClass3.GetReverseName());
-            Console.WriteLine(testClass3.index);
-            testClass.Print("It's work!");
-            Console.WriteLine();
-            var text = MeasurePerformance(10, () => testClass.GetReverseName());
+            // TestClassSeminar1_1 testClass = new("Денис");
+            // TestClassSeminar1_1 testClass2 = new("Оля");
+            // TestClassSeminar1_1 testClass3 = new("Абырвалг");
+            // Console.WriteLine(testClass.GetReverseName());
+            // Console.WriteLine(testClass2.GetReverseName());
+            // Console.WriteLine(testClass3.GetReverseName());
+            // Console.WriteLine(testClass3.index);
+            // testClass.Print("It's work!");
+            // Console.WriteLine();
+            // var text = MeasurePerformance(10, () => testClass.GetReverseName());
             #endregion
 
             #region SecondSeminarDZ and MeasurePerformance

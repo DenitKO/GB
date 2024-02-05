@@ -1,6 +1,6 @@
 ﻿using System; 
 
-namespace Seminar8
+namespace Lection9
 {
     /*
 

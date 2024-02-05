@@ -3,16 +3,27 @@
 namespace Seminar5
 {
     /*
-    Доработайте приложение генеалогического дерева таким образом 
-    чтобы программа выводила на экран близких родственников (жену/мужа) 
-    и братьев/сестёр определённого человека. Продумайте способ более 
-    красивого вывода с использованием горизонтальных и вертикальных черточек.
+
     */
     class Program
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello");
+            Calculator();
+        }
+        public static void Calculator()
+        {
+            Calculator calculator = new Calculator();
+            calculator.Result += Calculator_Result;
+
+            calculator.Add(10);
+            calculator.Add(20);
+            calculator.Div(3);
+
+            static void Calculator_Result(object? sender, CalculatorArgs e)
+            {
+                Console.WriteLine($"result: {e.answer}");
+            }
         }
     }
 }
