@@ -1,0 +1,15 @@
+C:\GB\ExtendedCsharp\Lections\Lection 1\obj\Debug\net8.0\Lection 1.GeneratedMSBuildEditorConfig.editorconfig
+C:\GB\ExtendedCsharp\Lections\Lection 1\obj\Debug\net8.0\Lection 1.AssemblyInfoInputs.cache
+C:\GB\ExtendedCsharp\Lections\Lection 1\obj\Debug\net8.0\Lection 1.AssemblyInfo.cs
+C:\GB\ExtendedCsharp\Lections\Lection 1\obj\Debug\net8.0\Lection 1.csproj.CoreCompileInputs.cache
+C:\GB\ExtendedCsharp\Lections\Lection 1\obj\Debug\net8.0\Lection 1.sourcelink.json
+C:\GB\ExtendedCsharp\Lections\Lection 1\bin\Debug\net8.0\Lection 1.exe
+C:\GB\ExtendedCsharp\Lections\Lection 1\bin\Debug\net8.0\Lection 1.deps.json
+C:\GB\ExtendedCsharp\Lections\Lection 1\bin\Debug\net8.0\Lection 1.runtimeconfig.json
+C:\GB\ExtendedCsharp\Lections\Lection 1\bin\Debug\net8.0\Lection 1.dll
+C:\GB\ExtendedCsharp\Lections\Lection 1\bin\Debug\net8.0\Lection 1.pdb
+C:\GB\ExtendedCsharp\Lections\Lection 1\obj\Debug\net8.0\Lection 1.dll
+C:\GB\ExtendedCsharp\Lections\Lection 1\obj\Debug\net8.0\refint\Lection 1.dll
+C:\GB\ExtendedCsharp\Lections\Lection 1\obj\Debug\net8.0\Lection 1.pdb
+C:\GB\ExtendedCsharp\Lections\Lection 1\obj\Debug\net8.0\Lection 1.genruntimeconfig.cache
+C:\GB\ExtendedCsharp\Lections\Lection 1\obj\Debug\net8.0\ref\Lection 1.dll
