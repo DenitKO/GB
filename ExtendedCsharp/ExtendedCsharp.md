@@ -2,4 +2,4 @@
 
 [Семинары](./Seminars/Seminars.md)
 
-[Дамашнее задание](./HomeWork/HomeWork.md)
+[Домашнее задание](./HomeWork/HomeWork.md)

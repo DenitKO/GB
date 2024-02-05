@@ -1,6 +1,6 @@
 ﻿using System; 
 
-namespace HomeWork1
+namespace Seminar4
 {
     /*
     Доработайте приложение генеалогического дерева таким образом 
