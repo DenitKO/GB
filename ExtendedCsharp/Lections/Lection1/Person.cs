@@ -53,7 +53,7 @@ namespace Lection1
             return (System.DateTime.Now-Birthday).Divide(365.25).Days.ToString();
         }
         
-        public void AddFamilyInfo(Person father, Person mother, params Person[] children)
+        public void AddFamilyInfo(Person? father, Person? mother, params Person[]? children)
         {
             Father = father;
             Mother = mother;
@@ -82,7 +82,7 @@ namespace Lection1
             }
         }
 
-        public bool GetChildren(out Person[] children)
+        public bool GetChildren(out Person[]? children)
         {
             if (Children!= null && Children.Length != 0)
             {

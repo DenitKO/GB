@@ -1,21 +1,22 @@
+using System;
 namespace Lection1
 {
-    internal class StringUtils
+    internal class MyReverseNameClass
     {
-        static int lenght;
-        public int index { get; private set; }
+        static int _length { get; set; }
+        public int Length { get; private set; }
         string name;
 
-        public StringUtils()
+        public MyReverseNameClass()
         {
-            index = lenght;
-            lenght++;
+            Length = _length;
+            _length++;
             name = string.Empty;
         }
-        public StringUtils(string name)
+        public MyReverseNameClass(string name)
         {
-            index = lenght;
-            lenght++;
+            Length = _length;
+            _length++;
             this.name = name;
         }
 
@@ -31,11 +32,6 @@ namespace Lection1
             char[] chars = name.ToCharArray();
             Array.Reverse(chars);
             return new string(chars);
-        }
-
-        public static int Length()
-        {
-            return lenght;
         }
     }
 }

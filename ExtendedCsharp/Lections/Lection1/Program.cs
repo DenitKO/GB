@@ -9,7 +9,7 @@ namespace Lection1
     {
         static void Main(string[] args)
         {
-            // StaticClassExample();
+            StaticClassExample();
 
             // StaticExampleSiblings();
 
@@ -21,9 +21,9 @@ namespace Lection1
 
             // PersonMethodShaveMakeUp();
 
-            // GetPropertyPresentation();
+            // GetPropertyExample();
 
-            // SetPropertyPresentation();
+            // SetPropertyExample();
 
             // System.Console.WriteLine(new TodayLambdaWithGet().Day);
             
@@ -63,13 +63,16 @@ namespace Lection1
         }
         public static void StaticClassExample()
         {
-            StringUtils testClass = new("Денис");
-            StringUtils testClass2 = new("Оля");
-            StringUtils testClass3 = new("Абырвалг");
+            string s1 = "Привет";
+            System.Console.WriteLine(StringUtilsExtensionClass.Reverse(s1));
+            System.Console.WriteLine(s1.Reverse());
+            MyReverseNameClass testClass = new("Денис");
+            MyReverseNameClass testClass2 = new("Оля");
+            MyReverseNameClass testClass3 = new("Абырвалг");
             Console.WriteLine(testClass.GetReverseName());
             Console.WriteLine(testClass2.GetReverseName());
             Console.WriteLine(testClass3.GetReverseName());
-            Console.WriteLine(testClass3.index);
+            Console.WriteLine(testClass3.Length);
             testClass.Print("It's work!");
             Console.WriteLine();
             var text = MeasurePerformance(10, () => testClass.GetReverseName());
@@ -116,7 +119,7 @@ namespace Lection1
                 if (p is Woman w)
                     w.PutMakeup();
                 else
-                    (p as Man).Shave();
+                    (p as Man)?.Shave();
             }
         }
 
@@ -144,25 +147,25 @@ namespace Lection1
             person1.AddFamilyInfo(father, mother, dauther, son);
             person1.PrintFamilyInfo();
 
-            var res = person1.GetChildren(out Person[] children);
+            var res = person1.GetChildren(out Person[]? children);
 
             if (res == true)
             {
                 System.Console.WriteLine("Дети есть");
             }
-            foreach (var child in children)
+            foreach (Person child in children!)
             {
                 child.Print();
             }
         }
-        public static void SetPropertyPresentation()
+        public static void SetPropertyExample()
         {
             var ae = new AdultAge();
             ae.Age = 10;
             System.Console.WriteLine(ae.Age);
         }
 
-        public static void GetPropertyPresentation()
+        public static void GetPropertyExample()
         {
             var someClass = new SomeClass(10);
             System.Console.WriteLine($"{someClass.pow2}, {someClass.pow3}, {someClass.pow4}");
@@ -304,7 +307,7 @@ namespace Lection1
             {
                 for (int j = 0; j < a.GetLength(1); j++)
                 {
-                    result[i, j] = (int)temp[count];
+                    result[i, j] = (int)temp[count]!;
                     Console.Write(result[i, j]);
                     count++;
                 }
@@ -339,6 +342,14 @@ namespace Lection1
             return elapsedTicks;
         }
 
+    }
+
+    public static class StringUtilsExtensionClass
+    {
+        public static string Reverse (this string s)
+        {
+            return new String(s.ToCharArray().Reverse().ToArray());
+        }
     }
 
     public class SomeClass
