@@ -9,31 +9,164 @@ namespace Lection1
     {
         static void Main(string[] args)
         {
-            UpCastDownCastSubstitution();
+            // StaticClassExample();
+
+            // StaticExampleSiblings();
+
+            // ArrayOfPersonOverrideAndBASE();
+
+            // ArrayOfPersonNullOperators();
+
+            // ArrayOfPersonWithIsAs();
+
+            // PersonMethodShaveMakeUp();
+
+            // GetPropertyPresentation();
+
+            // SetPropertyPresentation();
+
+            // System.Console.WriteLine(new TodayLambdaWithGet().Day);
+            
+            // PersonMethod();
+
+            // UpCastDownCastSubstitution();
 
             // ExtendetCSharpLection1();
 
             // TypeConvertsion();
-
-            #region Start TestClass1Seminar1_1
-            // TestClassSeminar1_1 testClass = new("Денис");
-            // TestClassSeminar1_1 testClass2 = new("Оля");
-            // TestClassSeminar1_1 testClass3 = new("Абырвалг");
-            // Console.WriteLine(testClass.GetReverseName());
-            // Console.WriteLine(testClass2.GetReverseName());
-            // Console.WriteLine(testClass3.GetReverseName());
-            // Console.WriteLine(testClass3.index);
-            // testClass.Print("It's work!");
-            // Console.WriteLine();
-            // var text = MeasurePerformance(10, () => testClass.GetReverseName());
-            #endregion
-
+            
             #region SecondSeminarDZ and MeasurePerformance
             // SecondSeminarDZ();
             // var text = MeasurePerformance(10, () => SecondSeminarDZ());
             #endregion
         }
 
+        public static void ArrayOfPersonOverrideAndBASE()
+        {
+            var woman = new Woman("Анна", System.DateTime.Parse("01.01.1990"));
+            var man = new Man("Олег", System.DateTime.Parse("01.01.1990"));
+
+            Person[] people = new Person[] {woman, man};
+
+            foreach(var p in people)
+            {
+                p.SayHello();
+            }
+
+            System.Console.WriteLine();
+
+            foreach(var p in people)
+            {
+                p.SayHelloPhrase();
+            }
+            man.SayHelloLikeParent();
+        }
+        public static void StaticClassExample()
+        {
+            StringUtils testClass = new("Денис");
+            StringUtils testClass2 = new("Оля");
+            StringUtils testClass3 = new("Абырвалг");
+            Console.WriteLine(testClass.GetReverseName());
+            Console.WriteLine(testClass2.GetReverseName());
+            Console.WriteLine(testClass3.GetReverseName());
+            Console.WriteLine(testClass3.index);
+            testClass.Print("It's work!");
+            Console.WriteLine();
+            var text = MeasurePerformance(10, () => testClass.GetReverseName());
+        }
+
+        public static void StaticExampleSiblings()
+        {
+            var woman = new Woman("Анна", System.DateTime.Parse("01.01.1990"));
+            var man = new Man("Олег", System.DateTime.Parse("01.01.1990"));
+            var father = new Man("Паша", System.DateTime.Parse("01.01.1964"));
+            var mother = new Woman("Маша", System.DateTime.Parse("01.01.1970"));
+            man.AddFamilyInfo(father, mother, null);
+            woman.AddFamilyInfo(father, mother, null);
+
+            System.Console.WriteLine(Person.AreSiblings(woman, man));
+        }
+
+        public static void ArrayOfPersonNullOperators()
+        {
+            var woman = new Woman("Анна", System.DateTime.Parse("01.01.1990"));
+            var man = new Man("Олег", System.DateTime.Parse("01.01.1990"));
+
+            Person[] people = new Person[] {woman, man};
+
+            foreach(var p in people)
+            {
+                (p as Woman)?.PutMakeup();
+                (p as Man)?.Shave();
+            }
+        }
+
+        public static void ArrayOfPersonWithIsAs()
+        {
+            var woman = new Woman("Анна", System.DateTime.Parse("01.01.1990"));
+            var man = new Man("Олег", System.DateTime.Parse("01.01.1990"));
+
+            Person[] people = new Person[] {woman, man};
+
+            foreach(var p in people)
+                p.Print();
+
+            foreach (var p in people)
+            {
+                if (p is Woman w)
+                    w.PutMakeup();
+                else
+                    (p as Man).Shave();
+            }
+        }
+
+        public static void PersonMethodShaveMakeUp()
+        {
+            var woman = new Woman("Анна", System.DateTime.Parse("01.01.1990"));
+            var man = new Man("Олег", System.DateTime.Parse("01.01.1990"));
+
+            woman.Print();
+            woman.PutMakeup();
+            woman.RemoveMakeup();
+
+            man.Print();
+            man.Shave();
+        }
+
+        public static void PersonMethod1()
+        {
+            var person1 = new Person("Фёдор", System.DateTime.Parse("29.01.1970"));
+            var son = new Person("Николай", System.DateTime.Parse("01.01.2020"));
+            var dauther = new Person("Мария", System.DateTime.Parse("01.01.1921"));
+            var father = new Person("Николай", System.DateTime.Parse("01.01.1950"));
+            var mother = new Person("Екатерина", System.DateTime.Parse("01.01.1950"));
+
+            person1.AddFamilyInfo(father, mother, dauther, son);
+            person1.PrintFamilyInfo();
+
+            var res = person1.GetChildren(out Person[] children);
+
+            if (res == true)
+            {
+                System.Console.WriteLine("Дети есть");
+            }
+            foreach (var child in children)
+            {
+                child.Print();
+            }
+        }
+        public static void SetPropertyPresentation()
+        {
+            var ae = new AdultAge();
+            ae.Age = 10;
+            System.Console.WriteLine(ae.Age);
+        }
+
+        public static void GetPropertyPresentation()
+        {
+            var someClass = new SomeClass(10);
+            System.Console.WriteLine($"{someClass.pow2}, {someClass.pow3}, {someClass.pow4}");
+        }
 
         public static void UpCastDownCastSubstitution()
         {
@@ -66,7 +199,7 @@ namespace Lection1
             Console.WriteLine("4. DownCast from B(A) to B");
             Console.WriteLine("B b2 = a2 as B;");
             Console.WriteLine("----------");
-            B b2 = a2 as B;
+            B? b2 = a2 as B;
             if (b2 != null)
             {
                 b2.Foo();
@@ -86,25 +219,6 @@ namespace Lection1
             }
             Console.WriteLine();
             // B b2 = new A(); НЕЛЬЗЯ
-        }
-
-        public static void ExtendetCSharpLection1()
-        {
-            Human[] humans = { new Man(), new Woman(), new Man() };
-            foreach (var human in humans)
-            {
-                Woman w = human as Woman;
-                w?.MakeUp();
-
-                if (human is Woman woman)
-                {
-                    if (!woman.IsMakeup())
-                        woman.MakeUp();
-                    else woman.MakeDown();
-                }
-
-                human.Info();
-            }
         }
 
         public static void TypeConvertsion()
@@ -140,7 +254,7 @@ namespace Lection1
             Console.WriteLine("construction - obj as MyPoint");
             Console.WriteLine("if (myPoint1 != null) {}");
 
-            MyPoint myPoint1 = obj as MyPoint;
+            MyPoint? myPoint1 = obj as MyPoint;
 
             if (myPoint1 != null)
             {
@@ -225,6 +339,42 @@ namespace Lection1
             return elapsedTicks;
         }
 
+    }
+
+    public class SomeClass
+    {
+        private readonly int Number;
+
+        public SomeClass(int number)
+        {
+            this.Number = number;
+        }
+
+        public int pow2 { get { return Number * Number; } }
+        public int pow3 { get { return Number * Number * Number; } }
+        public int pow4 { get { return Number * Number * Number * Number; } }
+    }
+
+    public class AdultAge
+    {
+        private int age;
+
+        public int Age
+        {
+            get {return age;}
+            set
+            {
+                if (value < 18)
+                    age = 18;
+                else
+                    age = value;
+            }
+        }
+    }
+
+    public class TodayLambdaWithGet
+    {
+        public string Day => System.DateTime.Now.DayOfWeek.ToString();
     }
 
     class A

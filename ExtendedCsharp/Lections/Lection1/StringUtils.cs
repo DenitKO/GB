@@ -1,30 +1,27 @@
 namespace Lection1
 {
-    internal class TestClassSeminar1_1
+    internal class StringUtils
     {
         static int lenght;
         public int index { get; private set; }
         string name;
-        bool b;
 
-        public TestClassSeminar1_1()
+        public StringUtils()
         {
             index = lenght;
             lenght++;
             name = string.Empty;
-            b = false;
         }
-        public TestClassSeminar1_1(string name)
+        public StringUtils(string name)
         {
             index = lenght;
             lenght++;
             this.name = name;
-            b = false;
         }
 
         public void Print(string msg)
         {
-            if (msg == "" || msg == null)
+            if (msg == string.Empty || msg == null)
                 return;
             Console.WriteLine(msg);
         }
