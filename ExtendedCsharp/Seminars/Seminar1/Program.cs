@@ -6,7 +6,10 @@ namespace Seminar1
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello");
+            FamilyMember familyMember = new FamilyMember();
+            familyMember.Print();
+
+            // stop time 1:04:00
         }
     }
 }

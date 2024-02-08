@@ -64,6 +64,8 @@ IoC - Inversion of control - Don’t call us, we’ll call you. Различны
 
 Свойства(property) класса - это члены класса, реализующие доступ к полям класса.
 
+или Accessor(Setter) и Mutator(Getter)
+
 <pre><code>
 [модификатор доступа] Тип ИмяСвойства
 {
