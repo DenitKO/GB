@@ -6,10 +6,22 @@ namespace Seminar1
     {
         static void Main(string[] args)
         {
-            FamilyMember familyMember = new FamilyMember();
-            familyMember.Print();
-
-            // stop time 1:04:00
+            FamilyMember grandGrandDad = new FamilyMember("Прадедушка", Gender.Male, null, null, null);
+            FamilyMember granGranMa = new FamilyMember("Прабабушка", Gender.Female, null, null, null);
+            FamilyMember granMa = new FamilyMember("Бабушка", Gender.Female, granGranMa, grandGrandDad, null);
+            FamilyMember granDad = new FamilyMember("Дедушка", Gender.Male, null, null, null);
+            FamilyMember mother1 = new FamilyMember("Мама1", Gender.Female, granMa, granDad, null);
+            FamilyMember mother2 = new FamilyMember("Мама2", Gender.Female, granMa, granDad, null);
+            FamilyMember dother1 = new FamilyMember("Дочка1", Gender.Female, mother1, null, null);
+            FamilyMember dother2 = new FamilyMember("Дочка2", Gender.Female, mother2, null, null);
+            FamilyMember dother3 = new FamilyMember("Дочка3", Gender.Female, mother2, null, null);
+            granGranMa.AddFamilyMember(null, null, granMa);
+            grandGrandDad.AddFamilyMember(null, null, granMa);
+            granMa.AddFamilyMember(granGranMa, grandGrandDad, mother1, mother2);
+            granDad.AddFamilyMember(null, null, mother1, mother2);
+            mother1.AddFamilyMember(granMa, granDad, dother1);
+            mother2.AddFamilyMember(granMa, granDad, dother2, dother3);
+            granGranMa.PrintFamily();
         }
     }
 }
