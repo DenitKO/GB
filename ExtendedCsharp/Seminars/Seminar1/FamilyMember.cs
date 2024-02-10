@@ -14,7 +14,7 @@ namespace Seminar1
 
         public FamilyMember() { }
 
-        public FamilyMember(string name, Gender gender, FamilyMember mother, FamilyMember father, params FamilyMember[]? children)
+        public FamilyMember(string name, Gender gender, FamilyMember? mother, FamilyMember? father, params FamilyMember[]? children)
         {
             this.Name = name;
             this.Gender = gender;
@@ -25,7 +25,7 @@ namespace Seminar1
 
         public override string ToString()
         {
-            return this.Name;
+            return this.Name!;
         }
 
         public void Print()
@@ -44,6 +44,7 @@ namespace Seminar1
                                                          this.Father,
                                                          sb);
         }
+
 
         public void AddFamilyMember(FamilyMember? mother, FamilyMember? father, params FamilyMember[]? children)
         {
@@ -88,29 +89,29 @@ namespace Seminar1
 
         public void PrintFamily()
         {
-            FamilyMember secondMember = null;
+            FamilyMember secondParent = null!;
             if (this.Children != null)
-                secondMember = this.Gender == Gender.Male ? this.Children[0].Mother : this.Children[0].Father;
-            if (secondMember != null)
-                PrintFamily(this, secondMember);
+                secondParent = this.SecondParentFromAnotherParent()!;
+            if (secondParent != null)
+                PrintFamily(this, secondParent);
             else
                 PrintFamily(this);
         }
 
-        private void PrintFamily(params FamilyMember[] familyMembers)
+        private void PrintFamily(params FamilyMember[] grandFathersAndMothers)
         {
             List<FamilyMember> children = new List<FamilyMember>();
-            foreach (FamilyMember familyMember in familyMembers)
+            foreach (FamilyMember familyMember in grandFathersAndMothers)
                 Console.Write($"{familyMember} ");
             Console.WriteLine();
-            foreach (FamilyMember familyMember in familyMembers) {
-                    if (familyMember.Children != null) {
-                        foreach (FamilyMember child in familyMember.Children) {
+            foreach (FamilyMember fathersAndMothers in grandFathersAndMothers) {
+                    if (fathersAndMothers.Children != null) {
+                        foreach (FamilyMember child in fathersAndMothers.Children) {
                             if (child.Children != null) {
-                                foreach (FamilyMember child2 in child.Children) {
-                                    FamilyMember? second = child2.Gender == Gender.Male ? child2.Mother : child2.Father;
-                                    if (children.Contains(second!))
-                                        children.Add(second!);
+                                foreach (FamilyMember childOfChildren in child.Children) {
+                                    FamilyMember secondParent = childOfChildren.SecondParentFromChild()!;
+                                    if (children.Contains(secondParent!))
+                                        children.Add(secondParent!);
                                 }
                             }
                             if (!children.Contains(child))
@@ -121,12 +122,59 @@ namespace Seminar1
             if (children.Count > 0)
                 PrintFamily(children.ToArray());
         }
+
+        public void SpouseAndSiblings()
+        {
+            FamilyMember? spouse = null!;
+            if (this.Children != null)
+                spouse = this.SecondParentFromAnotherParent()!;
+            if(spouse != null)
+            {
+                string firthSpouse = this.Gender == Gender.Male ? "Муж: " : "Жена: ";
+                string secondSpouse = spouse.Gender == Gender.Male ? "Муж: " : "Жена: ";
+                Console.WriteLine($"{firthSpouse}{this}, {secondSpouse}{spouse}");
+            }
+
+
+            List<FamilyMember>? siblings = new List<FamilyMember>();
+            if (this.Mother != null && this.Mother.Children != null)
+            {
+                foreach (FamilyMember child in this.Mother.Children)
+                {
+                    if(child != this)
+                        siblings!.Add(child);
+                }
+            }
+            if (this.Father != null && this.Father.Children != null)
+            {
+                foreach (FamilyMember child in this.Father.Children)
+                {
+                    if (child != this && !siblings.Contains(child))
+                        siblings.Add(child);
+                }
+            }
+            foreach (FamilyMember sibling in siblings.ToArray())
+            {
+                string stringSibling = sibling.Gender == Gender.Male ? "Брат: " : "Сестра: ";
+                Console.Write($"{stringSibling}{sibling} ");
+            }
+        }
     }
     internal static class MyFamalyExtantion
     {
         internal static bool IsFemale(this FamilyMember f)
         {
             return (f.Gender == Gender.Female);
+        }
+
+        internal static FamilyMember? SecondParentFromChild(this FamilyMember f)
+        {
+            return f.Gender == Gender.Male ? f.Mother : f.Father;
+        }
+
+        internal static FamilyMember? SecondParentFromAnotherParent(this FamilyMember f)
+        {
+            return f.Gender == Gender.Male ? f.Children[0].Mother : f.Children[0].Father;
         }
     }
 }
