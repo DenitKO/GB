@@ -4,5 +4,5 @@
 
 [Контрольная работа](./Final_control_work_p2/README.md)
 
-[Разработка приложения на С#](./ExtendedCsharp/ExtendedCsharp.md)
+[Разработка приложения на С#](./ExtendedCsharp/Readme.md)
 
