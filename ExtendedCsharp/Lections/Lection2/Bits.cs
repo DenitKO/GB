@@ -28,5 +28,10 @@ namespace Lection2
                 }
             }
         }
+
+        // Реализация явного и неявного приведения
+
+        public static implicit operator byte(Bits b) => b.Value;
+        public static explicit operator Bits(byte b) => new Bits(b);
     }
 }
