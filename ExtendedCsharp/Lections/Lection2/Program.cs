@@ -57,10 +57,86 @@
             }
         }
 
+        class Utility<T> where T:struct
+        {
+            public static void Swap(ref T v1, ref T v2)
+            {
+                T temp = v1;
+                v1 = v2;
+                v2 = temp;
+            }
+        }
+
+        class Utility2
+        {
+            public static void Swap<T>(ref T v1, ref T v2)
+            {
+                T temp = v1;
+                v1 = v2;
+                v2 = temp;
+            }
+        }
+
+        interface ICovariant<out T>
+        {
+            T GetDefault();
+        }
+
+        class SomeClass<T> : ICovariant<T>
+        {
+            public T GetDefault()
+            {
+                return default(T);
+            }
+        }
+
+        interface IContrvariant<in T>
+        {
+            void DoSomething(T arg);
+        }
+
+        class SomeClass2<T> : IContrvariant<T>
+        {
+            public void DoSomething(T arg)
+            {              
+            }
+        }
+
+        interface IInvariant<T>
+        {
+            T GetDefault();
+            void DoSomething(T arg);
+        }
+
+        class SomeClass3<T> : IInvariant<T>
+        {
+            public void DoSomething(T arg)
+            {              
+            }
+
+            public T GetDefault()
+            {
+                return default(T);
+            }
+        }
+
         static void Main(string[] args)
         {
+            #region Generic интерфейсы коварианты контрварианты инварианты
+            // InvariantExample();
 
-            SimpleTupleExample();
+            // ContrvariantExample();
+
+            // CovariantExample();
+            #endregion
+
+            // GenericInterfaceExample();
+
+            // GenericLimitationMethodExample();
+
+            // GenericLimitationClassExample();
+
+            // SimpleTupleExample();
 
             // Record2Example();
 
@@ -83,6 +159,88 @@
 
             // IComparableExample();
             #endregion
+
+            static void InvariantExample()
+            {
+                IContrvariant<object> obj2 = new SomeClass3<object>();
+                // IContrvariant<string> str2 = obj2; // так нельзя
+
+                IContrvariant<string> str1 = new SomeClass3<string>();
+                // IContrvariant<object> obj1 = str1; // так нельзя
+            }
+
+            static void ContrvariantExample()
+            {
+                IContrvariant<object> obj2 = new SomeClass2<object>();
+                IContrvariant<string> str2 = obj2;
+
+                IContrvariant<string> str1 = new SomeClass2<string>();
+                // IContrvariant<object> obj1 = str1; // так нельзя
+            }
+
+            static void CovariantExample()
+            {
+                ICovariant<string> str1 = new SomeClass<string>();
+                ICovariant<object> obj1 = str1;
+
+                ICovariant<object> obj2 = new SomeClass<string>();
+                // ICovariant<string> str2 = obj2; // так нельзя
+            }
+
+            static void GenericInterfaceExample()
+            {
+                Metric[] tempratures = new Metric[]
+                {
+                    new Metric{ Month = 1, Temperature = -1, Days = 10 },
+                    new Metric{ Month = 8, Temperature = 22, Days = 1 },
+                    new Metric{ Month = 1, Temperature = -10, Days = 2 },
+                    new Metric{ Month = 2, Temperature = -1, Days = 3 },
+                    new Metric{ Month = 5, Temperature = 10, Days = 4 },
+                    new Metric{ Month = 1, Temperature = -2, Days = 5 },
+                    new Metric{ Month = 2, Temperature = -30, Days = 1 },
+                    new Metric{ Month = 1, Temperature = 2, Days = 3 },
+                };
+
+                Array.Sort(tempratures);
+
+                foreach (var t in tempratures)
+                {
+                    Console.Write(t + " ");
+                }
+            }
+
+            static void GenericLimitationMethodExample()
+            {
+                int a = 10, b = 20;
+                char c1 = 'B', c2 = 'B';
+                string s1 = "ABC", s2 = "BCD";
+
+                Utility2.Swap<int>(ref a, ref b);
+
+                Console.WriteLine($"a={a}, b = {b}"); // a=20, b = 10
+
+                Utility2.Swap(ref c1, ref c2);
+
+                Console.WriteLine($"c1={c1}, c2 = {c2}"); // c1=B, c2 = B
+
+                Utility2.Swap(ref s1, ref s2);
+
+                System.Console.WriteLine($"c1={s1}, s2 = {s2}"); // c1=BCD, s2 = ABC
+            }
+
+            static void GenericLimitationClassExample()
+            {
+                int a = 10, b = 20;
+                char c1 = 'B', c2 = 'B';
+
+                Utility<int>.Swap(ref a, ref b);
+
+                Console.WriteLine($"a={a}, b = {b}"); // a=20, b = 10
+
+                Utility<char>.Swap(ref c1, ref c2);
+
+                Console.WriteLine($"c1={c1}, c2 = {c2}"); // c1=B, c2 = B
+            }
 
             static void SimpleTupleExample()
             {
