@@ -2,6 +2,13 @@
 {
     /*
         Урок 2. Интерфейсы и обощения
+
+        1. декомпозиция - ешь слона по кусочкам - Необходимо выявить, самый маленький, фундаментальный, объект. Просто выписать его.
+        2. ЗАЧЕМ? - зачем оно нужно
+        3. Конкретизация - для чего конкретно оно нужно, когда удобно это использовать, смоделировать, закрепить кодом
+        4. Структуризация - Объединить похожие эллементы, и выяснить в чём между ними разница
+        5. Иерархия - разобратся во взаимодействии компонентов, от самым маленьких.
+        6. НЕ УПАРЫВАЙТСЯ. - Не надо лезть слишком глубоко.
     */
     class Program
     {
@@ -35,6 +42,7 @@
         {
             public int b = 0;
         }
+        
         record class ValueRecord(int a)
         {
             public int b = 0;
@@ -111,7 +119,7 @@
         class SomeClass3<T> : IInvariant<T>
         {
             public void DoSomething(T arg)
-            {              
+            {
             }
 
             public T GetDefault()
@@ -127,7 +135,7 @@
 
             // ContrvariantExample();
 
-            // CovariantExample();
+             CovariantExample();
             #endregion
 
             // GenericInterfaceExample();
@@ -162,11 +170,11 @@
 
             static void InvariantExample()
             {
-                IContrvariant<object> obj2 = new SomeClass3<object>();
-                // IContrvariant<string> str2 = obj2; // так нельзя
+                IInvariant<object> obj2 = new SomeClass3<object>();
+                // IInvariant<string> str2 = obj2; // так нельзя
 
-                IContrvariant<string> str1 = new SomeClass3<string>();
-                // IContrvariant<object> obj1 = str1; // так нельзя
+                IInvariant<string> str1 = new SomeClass3<string>();
+                // IInvariant<object> obj1 = str1; // так нельзя
             }
 
             static void ContrvariantExample()
@@ -183,8 +191,17 @@
                 ICovariant<string> str1 = new SomeClass<string>();
                 ICovariant<object> obj1 = str1;
 
+                System.Console.WriteLine(str1.GetType());
+                System.Console.WriteLine(str1.GetDefault());
+                System.Console.WriteLine(obj1.GetType());
+                System.Console.WriteLine(obj1.GetDefault());
+                
+
                 ICovariant<object> obj2 = new SomeClass<string>();
                 // ICovariant<string> str2 = obj2; // так нельзя
+
+                System.Console.WriteLine(obj2.GetType());
+                System.Console.WriteLine(obj2.GetDefault());
             }
 
             static void GenericInterfaceExample()
