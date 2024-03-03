@@ -15,7 +15,126 @@ namespace Lection3
             // ListFindAll();
             // ListFindIndex();
             // ListFindLastIndex();
-            ListInsert();
+            // ListInsert();
+            // LinkedListExample();
+            // LinkedListAddAfter();
+            // QueueExample();
+            // QueueExample2();
+            StackExample();
+
+            static void StackExample()
+            {
+                static bool ValidParentheses(string s)
+                {
+                    Stack<char> stack = new Stack<char>();
+                    foreach (var c in s)
+                    {
+                        if (c == '[') stack.Push(']');
+                        if (c == '(') stack.Push(')');
+                        if (c == '{') stack.Push('}');
+
+                        if ("])}".Contains(c))
+                        {
+                            if (stack.Count == 0)
+                                return false;
+                            if (stack.Pop() != c)
+                                return false;
+                        }
+                    }
+                    return stack.Count == 0;
+                }
+
+                Console.WriteLine(ValidParentheses("(([]{}))()")); // True
+                Console.WriteLine(ValidParentheses("()(({())))")); // False
+            }
+
+            static void QueueExample2()
+            {
+                static IEnumerable<int> DataSource()
+                {
+                    for (int i = 0; i < 30; i++)
+                        yield return i;
+                }
+
+                var q = new Queue<int>();
+
+                foreach (var el in DataSource())
+                {
+                    q.Enqueue(el);
+                    if (q.Count > 5)
+                        Console.Write(q.Dequeue() + " "); // 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24
+                }
+            }
+
+            static void QueueExample()
+            {
+                static bool Process(int i)
+                {
+                    return false;
+                }
+                static bool ALternativeProcess(int i)
+                {
+                    return true;
+                }
+                var q = new Queue<int>();
+
+                q.Enqueue(1);
+                q.Enqueue(2);
+                q.Enqueue(3);
+                q.Enqueue(4);
+                q.Enqueue(5);
+
+                var element = q.Peek();
+
+                if (Process(element))
+                {
+                    q.Dequeue();
+                }
+                else
+                {
+                    ALternativeProcess(q.Dequeue());
+                }
+            }
+
+            static void LinkedListAddAfter()
+            {
+                LinkedList<int> list1 = new LinkedList<int>(new int[] { 1, 4, 5,});
+
+                LinkedListNode<int> node = list1.First!;
+
+                list1.AddAfter(node, 3);
+                list1.AddAfter(node, new LinkedListNode<int>(2));
+
+                foreach (var n in list1)
+                {
+                    System.Console.Write($"{n} "); // 1 2 3 4 5 
+                }
+            }
+
+            static void LinkedListExample()
+            {
+                LinkedList<int> list1 = new LinkedList<int>(new int[] { 1, 2, 3, 4, 5,});
+
+                System.Console.WriteLine($"В списке {list1.Count} элементов"); // В списке 5 элементов
+
+                LinkedListNode<int> node = list1.First!;
+
+                while (node != null)
+                {
+                    System.Console.Write(node.Value + " "); // 1 2 3 4 5
+                    node = node.Next!;
+                }
+
+                System.Console.WriteLine();
+
+                node = list1.Last!;
+
+                while (node != null)
+                {
+                    System.Console.Write(node.Value + " "); // 5 4 3 2 1
+                    node = node.Previous!;
+                }
+            }
 
             static void ListInsert()
             {
