@@ -7,7 +7,7 @@ namespace Seminar3
     */
     class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
             int[,] arr = new int[,]
             {
@@ -27,14 +27,20 @@ namespace Seminar3
             labirint.PrintLabirint();
         }
     }
+
     class Labirint
     {
         private int[,] _labirint { get; set; }
         public int _exits {  get; private set; } = 0;
 
+        private int _width {  get; set; }
+        private int _length { get; set; }
+
         public Labirint(int[,] labirint)
         {
             _labirint = labirint;
+            _length = labirint.GetLength(0);
+            _width = labirint.GetLength(1);
         }
 
         public void PrintExits()
@@ -49,8 +55,7 @@ namespace Seminar3
         /// <param name="y">Стартовая позиция по Y</param>
         public void FindExitsRecursivelyFromXY(int x, int y)
         {
-            
-            if (!isMove(x, y))
+            if (!IsMove(x, y))
                 return;
             _labirint[x, y] = 2;
             FindExitsRecursivelyFromXY(x, y+1);
@@ -59,11 +64,17 @@ namespace Seminar3
             FindExitsRecursivelyFromXY(x-1, y);
         }
 
+        public void FindExitByDenis(int x, int y)
+        {
+            if (_labirint[x, y] == 0)
+                _exits++;
+        }
+
         public void PrintLabirint()
         {
-            for (int i = 0; i < _labirint.GetLength(0); i++)
+            for (int i = 0; i < _length; i++)
             {
-                for (int j = 0; j < _labirint.GetLength(1); j++)
+                for (int j = 0; j < _width; j++)
                 {
                     Console.Write($"{_labirint[i,j]} ");
                 }
@@ -71,15 +82,21 @@ namespace Seminar3
             }
         }
 
-        private bool isMove(int x, int y)
+        private bool IsMove(int x, int y)
         {
-            if ((x == _labirint.GetLength(0) - 1 || y == _labirint.GetLength(1) - 1 || x == 0 || y == 0) && (_labirint[x,y]==0))
-                _exits++;
-            if (x < 0 || x >= _labirint.GetLength(0))
+            if (x < 0 || x >= _length)
                 return false;
-            if (y < 0 || y >= _labirint.GetLength(1))
+            if (y < 0 || y >= _width)
                 return false;
+            _exits += IsExit(x, _length, _labirint[x, y]) + IsExit(y, _width, _labirint[x, y]);
             return _labirint[x, y] == 0;
+        }
+
+        private int IsExit(int coord, int border, int segment)
+        {
+            if ((coord == 0 || coord == border - 1) && segment == 0)
+                return 1;
+            return 0;
         }
     }
 }
