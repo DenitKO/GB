@@ -64,12 +64,6 @@ namespace Seminar3
             FindExitsRecursivelyFromXY(x-1, y);
         }
 
-        public void FindExitByDenis(int x, int y)
-        {
-            if (_labirint[x, y] == 0)
-                _exits++;
-        }
-
         public void PrintLabirint()
         {
             for (int i = 0; i < _length; i++)
