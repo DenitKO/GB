@@ -84,11 +84,7 @@ namespace HomeWork3
             Console.WriteLine($"Количество выходов: {_exits}.");
         }
 
-        /// <summary>
-        /// Рекурсивно находит выходы из лабиринта и записывает их.
-        /// </summary>
-        /// <param name="x">Стартовая позиция по X</param>
-        /// <param name="y">Стартовая позиция по Y</param>
+
         public void Print2DLabirint()
         {
             for (int i = 0; i < _length; i++)
@@ -116,7 +112,11 @@ namespace HomeWork3
                 Console.WriteLine();
             }
         }
-
+        /// <summary>
+        /// Рекурсивно находит выходы из лабиринта и записывает их.
+        /// </summary>
+        /// <param name="x">Стартовая позиция по X</param>
+        /// <param name="y">Стартовая позиция по Y</param>
         public void FindExitsRecursivelyFromXY(int x = 3, int y = 3)
         {
             if (!IsMove2D(x, y))
@@ -125,7 +125,7 @@ namespace HomeWork3
             FindExitsRecursivelyFromXY(x + 1, y);
             FindExitsRecursivelyFromXY(x - 1, y);
             FindExitsRecursivelyFromXY(x, y + 1);
-            FindExitsRecursivelyFromXY(x, y + 1);
+            FindExitsRecursivelyFromXY(x, y - 1);
         }
         private bool IsMove2D(int x, int y)
         {
@@ -136,7 +136,12 @@ namespace HomeWork3
             _exits += IsExit(x, _length, _labirint2D[x, y]) + IsExit(y, _width, _labirint2D[x, y]);
             return _labirint2D[x, y] == 0;
         }
-
+        /// <summary>
+        /// Рекурсивно находит выходы из лабиринта и записывает их.
+        /// </summary>
+        /// <param name="x">Стартовая позиция по X</param>
+        /// <param name="y">Стартовая позиция по Y</param>
+        /// <param name="z">Стартовая позиция по Y</param> 
         public void FindExitsRecursivelyFromXYZ(int x = 2, int y = 2, int z = 2)
         {
             if (!IsMove3D(x, y, z))

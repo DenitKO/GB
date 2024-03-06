@@ -1,8 +1,9 @@
 # Разработка приложения на С# (лекции)
 
+## Содержание 
+
 ## Урок 3. Коллекции (часть 1)
 
-## Содержание 
 [Пространство имен System.Collections, System.Collections.Generic](#пространство-имен-systemcollections-systemcollectionsgeneric)
 
 [BitArray](#bitarray)
