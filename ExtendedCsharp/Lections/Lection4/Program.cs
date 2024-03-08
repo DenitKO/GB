@@ -21,7 +21,195 @@ namespace Lection4
             // HashSetOverlaps();
             // HashSetRemove();
             // HashSetRemoveWhere();
-            HashSetSymmetricExceptWith();
+            // HashSetSymmetricExceptWith();
+            // FindDigitArrayExample();
+            // FindDigitHashSetExample();
+            // FindNamesStartingFromCharLINQ();
+            // FindNamesStartingFromCharLINQ2();
+            // FindAndDoMagicLINQ();
+            // OrderByLINQ();
+            // OrderByDescendingLINQ();
+            // ThenByDescendingLINQ();
+            AggregateLINQ();
+        }
+
+        static void AggregateLINQ()
+        {
+            int[] ints = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+
+            int mult = ints.Aggregate((m, i) => m * i);
+
+            System.Console.WriteLine("Результат перемножения всех элементов коллекции = " + mult);
+            // Результат перемножения всех элементов коллекции = 3628800
+        }
+
+        static void ThenByDescendingLINQ()
+        {
+            string[] fruits = {"яблоко","груша","апельсин","ежевика","черника","мандарин"};
+
+            IEnumerable<string> e = fruits.OrderBy(x => x.Length).ThenBy(x=>x);
+
+            foreach (var n in e)
+            {
+                System.Console.WriteLine($"{n},");
+                /*
+                груша,
+                яблоко,
+                ежевика,
+                черника,
+                апельсин,
+                мандарин,
+                */
+            }
+        }
+
+        static void OrderByDescendingLINQ()
+        {
+            int[] ints = { 4, 5, 2, 1, 3};
+
+            IEnumerable<int> e = ints.OrderByDescending(i => i);
+
+            foreach (var n in e)
+            {
+                System.Console.Write($"{n},"); // 5,4,3,2,1,
+            }
+        }
+
+        static void OrderByLINQ()
+        {
+            int[] ints = { 4, 5, 2, 1, 3};
+
+            IEnumerable<int> e = ints.OrderBy(i => i);
+
+            foreach (var n in e)
+            {
+                System.Console.Write($"{n},"); // 1,2,3,4,5,
+            }
+        }
+
+        static void FindAndDoMagicLINQ()
+        {
+            int[] ints = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+
+            var power1 = from i in ints
+                        where i % 2 == 0
+                        select
+                        new { Value = i, Power = i * i };
+
+            foreach (var p in power1)
+            {
+                Console.WriteLine($" Power of {p.Value}={p.Power}");
+                /*
+                Power of 2=4
+                Power of 4=16
+                Power of 6=36
+                Power of 8=64
+                Power of 10=100
+                */
+            }
+
+            Console.WriteLine();
+
+            var power2 = ints.Where(i => i % 2 == 0).Select(i => new { Value = i,Power = i * i });
+
+            foreach (var p in power1)
+            {
+                Console.WriteLine($" Power of {p.Value}={p.Power}");
+                /*
+                Power of 2=4
+                Power of 4=16
+                Power of 6=36
+                Power of 8=64
+                Power of 10=100
+                */
+            }
+        }
+
+        static void FindNamesStartingFromCharLINQ2()
+        {
+            string[] names = { "Анна", "Алена", "Анастасия", "Александр", "Алексей", "Елена", "Федор", "Михаил", "Елисей"};
+
+            IEnumerable<string> namesE = names.Where(n => n.StartsWith('Е'));
+
+            foreach (var n in namesE)
+            {
+                Console.Write($"{n},"); // Елена,Елисей,
+            }
+
+            Console.WriteLine();
+
+            names[0] = "Екатерина";
+
+            foreach (var n in namesE)
+            {
+                Console.Write($"{n},"); // Екатерина,Елена,Елисей,
+            }
+        }
+
+        static void FindNamesStartingFromCharLINQ()
+        {
+            string[] names = { "Анна", "Алена", "Анастасия", "Александр", "Алексей", "Елена", "Федор", "Михаил", "Елисей"};
+
+            IEnumerable<string> namesA = from name in names
+                                        where name.StartsWith('А')
+                                        select name;
+
+            foreach (var n in namesA)
+            {
+                Console.Write($"{n},"); // Анна,Алена,Анастасия,Александр,Алексей,
+            }
+
+            Console.WriteLine();
+
+            IEnumerable<string> namesE = names.Where(n => n.StartsWith('Е'));
+
+            foreach (var n in namesE)
+            {
+                Console.Write($"{n},"); // Елена,Елисей,
+            }
+        }
+
+        static void FindDigitHashSetExample()
+        {
+            int[] arr = new int[] { -2, 10, 2, 31, 4, 5, 16, 7, 8, 9 };
+            int target = 29;
+
+            HashSet<int> set = new HashSet<int>();
+
+            foreach (var i in arr)
+            {
+                if (set.Contains(target - i))
+                {
+                    System.Console.WriteLine($"Числа = {target - i},{i}"); // Числа = -2,31
+                    return;
+                }
+                else
+                {
+                    set.Add(i);
+                }
+            }
+            Console.WriteLine("Числа не найдены");
+        }
+
+        static void FindDigitArrayExample()
+        {
+            int[] arr = new int[] { -2, 10, 2, 31, 4, 5, 16, 7, 8, 9 };
+            int target = 29;
+
+            for (int i = 0; i < arr.Length; i++)
+            {
+                for (int j = 0; j < arr.Length; j++)
+                {
+                    if (i == j)
+                        continue;
+                    if (arr[i] + arr[j] == target)
+                    {
+                        Console.WriteLine($"Числа = {arr[i]},{arr[j]}"); // Числа = -2,31
+                        return;
+                    }
+                }
+            }
+            Console.WriteLine("Числа не найдены");
         }
 
 
