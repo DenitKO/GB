@@ -6,3 +6,4 @@
 
 [Разработка приложения на С#](./ExtendedCsharp/Readme.md)
 
+[Исключения в программировании](./An_exception_in_programming/Readme.md)

@@ -341,7 +341,6 @@ namespace Lection1
             Console.WriteLine($"AVG_Ticks: {elapsedTicks}; AVG_MS: {elapsedMS}.");
             return elapsedTicks;
         }
-
     }
 
     public static class StringUtilsExtensionClass
